@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<img id="image" src="image.png">
+		<button onclick="func4()">Up</button>
+		<br>
+		<button onclick="func()">Left</button>
+		<button onclick="func3()">Down</button>
+		<button onclick="func2()">Right</button>
+
+		<br><br>
+		<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+		<script>
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			var img = document.getElementById("image");
+			var x = 100;
+			var y = 50;
+			function func() {
+			ctx.moveTo(x, y);
+
+			x = x - 10;
+
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func2() {
+			ctx.moveTo(x, y);
+
+			x = x + 10;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func3() {
+			ctx.moveTo(x, y);
+
+			y = y + 10;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func4() {
+			ctx.moveTo(x, y);
+
+			y = y - 10;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+		</script>
+	</body>
+</html>

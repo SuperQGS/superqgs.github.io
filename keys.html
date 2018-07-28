@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<img id="image" src="image.bmp">
+		<canvas id="myCanvas" width="200" height="100" style="border:1px solid #000000;">
+		<script>
+			var c = document.getElementById("myCanvas");
+			var ctx = c.getContext("2d");
+			var img = document.getElementById("image");
+			var x = 100;
+			var y = 50;
+			
+			ctx.moveTo(10, 10);
+			ctx.drawImage(img, 10, 10);
+			
+			
+			
+			
+			function func() {
+			ctx.moveTo(x, y);
+
+			x = x - 1;
+
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func2() {
+			ctx.moveTo(x, y);
+
+			x = x + 1;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func3() {
+			ctx.moveTo(x, y);
+
+			y = y + 1;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+			
+			function func4() {
+			ctx.moveTo(x, y);
+
+			y = y - 1;
+			
+			ctx.drawImage(img, x, y);
+			ctx.stroke();
+			}
+		
+			
+			window.addEventListener("keydown", binds, true);
+        		function binds(e) {
+            
+            			//test for which key pressed and set coordinates
+            			if (e.keyCode == "40") {
+                			//go down
+                			func3();
+            			} else if (e.keyCode == "39") {
+                			//go right
+                			func2();
+            			} else if (e.keyCode == "38") {
+                			//go up
+                			func4();
+            			} else if (e.keyCode == "37") {
+                			//go left
+                			func();
+            			}
+			}
+			
+		</script>
+	</body>
+</html>
