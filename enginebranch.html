@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+    <!--QGS tile engine v0.3 by qgsoftware.net-->
+    <style>
+        * {
+            text-align: center;
+        }
+        canvas {
+            height: 97vh;
+            
+            image-rendering: -moz-crisp-edges;
+            image-rendering: -o-crisp-edges;
+            image-rendering: -webkit-optimize-contrast;
+            image-rendering: pixelated;
+        }
+    </style>
+    <body>
+        <!--PASTE CANVAS TAG UNDER HERE [note: you can change size and position with css or putting the tag where you want]-->
+        <canvas id='game'></canvas>
+        
+        <br>
+        <!--PASTE IMAGE TAGS UNDER HERE [note: you can hide this with css]-->
+        <div id="images">
+            <img src="images/stone.bmp" id="stone">
+            <img src="images/dark.bmp" id="dark">
+            <img src="images/stone_bricks.bmp" id="stone_bricks"><img src="images/stone_bricks.bmp" id="stonebricks">
+            <img src="images/wood.bmp" id="wood">
+            <img src="images/barrel.bmp" id="barrel">
+            <img src="images/chest.bmp" id="chest">
+            <img src="images/player_spawn.bmp" id="monster">
+            
+            <img src="images/player_front.png" id="player">
+            <img src="images/player_back.png" id="player_b">
+            <img src="images/player_right.png" id="player_r">
+            <img src="images/player_left.png" id="player_l">
+        
+            <img src="images/door.bmp" id="door">
+            <img src="images/yellow_door.bmp" id="yellow_door"><img src="images/yellow_door.bmp" id="yellowdoor">
+            <img src="images/red_door.bmp" id="red_door"><img src="images/red_door.bmp" id="reddoor">
+            <img src="images/green_door.bmp" id="green_door"><img src="images/green_door.bmp" id="greendoor">
+            <img src="images/orange_door.bmp" id="orange_door"><img src="images/orange_door.bmp" id="orangedoor">
+        
+            <img src="images/yellow_key.png" id="yellow_key"><img src="images/yellow_key.png" id="yellowkey">
+            <img src="images/red_key.png" id="red_key"><img src="images/red_key.png" id="redkey">
+            <img src="images/green_key.png" id="green_key"><img src="images/green_key.png" id="greenkey">
+            <img src="images/orange_key.png" id="orange_key"><img src="images/orange_key.png" id="orangekey">
+            
+            <img src="images/player_spawn.bmp" id="playerspawn">
+            
+            <img src="images/arrow_n.png" id="arrow_n">
+            <img src="images/arrow_s.png" id="arrow_s">
+            <img src="images/arrow_w.png" id="arrow_w">
+            <img src="images/arrow_e.png" id="arrow_e">
+        </div>
+            
+
+        <script src="maps/keydoortest.js"></script>
+        <script src="maps/testmp.js"></script>
+        <script>
+            //PASTE CANVAS VARIABLES UNDER HERE
+            var canvas_name = "game"; var texture_dimensions = 7; var grid_height = 84; var grid_width = 98;
+            //PASTE TILES UNDER HERE
+            
+            
+            var tiles = keydoortest;
+            //push player tile
+            var player_tile = {x:0, y:0, type:'player', image:player, image_string:'player'}; tiles.push(player_tile);
+            
+            //canvas info
+            var canvas = document.getElementById(canvas_name);
+            var ctx = canvas.getContext("2d");
+            ctx.translate(canvas.width / 2,canvas.height / 2);
+            
+            //canvas dimensions
+            document.getElementById(canvas_name).width = grid_width;
+            document.getElementById(canvas_name).height = grid_height;
+            
+            //render stuff
+            var change_tile = 0;
+            var new_tile_num = 0;
+            window.setInterval(function(){ render(); }, 0);
+            function render() {
+                var new_tile_num = 0;
+                var num_of_tiles = tiles.length - 1;
+                var loop = true;
+                while (loop) {
+                    if (new_tile_num <= num_of_tiles) {
+                        change_tile = tiles[new_tile_num];
+                        change_tile.x = change_tile.x;
+                        change_tile.y = change_tile.y;
+                        ctx.imageSmoothingEnabled = false;
+                        real_time_tick();
+                        develop();
+                        change_tile = "";
+                        new_tile_num = new_tile_num + 1;
+                    } else {
+                        loop = false;
+                    }
+                }
+            }
+            
+            //developer function
+            //NOTE: attributes of each tile are
+            //x:
+            //y:
+            //type:
+            var coord_tick_multiplier = 1;
+            
+            function develop() {
+                //set character
+                set_character();
+                
+                var coord_tick = tick / coord_tick_multiplier;
+                if (coord_tick > 25) {
+                    set_coordinates()
+                    coord_tick_multiplier = coord_tick_multiplier + 1;
+                }
+                
+                
+                //this is the line that finally renders the tile
+                ctx.drawImage(change_tile.image, change_tile.x + grid_width/2 - player1_x, change_tile.y + grid_height/2 - player1_y);
+            }
+            
+            function set_character() {
+                if (change_tile.type == "player") {
+                    //set player coordinates to player tile
+                    change_tile.x = player1_x;
+                    change_tile.y = player1_y - 7;
+                    //set player directional texture
+                    if (direction == "south") {
+                        change_tile.image = player;
+                    }
+                    if (direction == "north") {
+                        change_tile.image = player_b;
+                    }
+                    if (direction == "west") {
+                        change_tile.image = player_l;
+                    }
+                    if (direction == "east") {
+                        change_tile.image = player_r;
+                    }
+                }
+            }
+            
+            function collision(labeldir) {
+                var new_tile_num = 0;
+                var num_of_tiles = tiles.length;
+                var loop = true;
+                while (loop) {
+                    if (new_tile_num < num_of_tiles) {
+                        change_tile = tiles[new_tile_num];
+                        if (change_tile.type == "wall" || change_tile.type == "yellow_door" || change_tile.type == "red_door" || change_tile.type == "green_door" || change_tile.type == "orange_door" || change_tile.type == "yellow_key" || change_tile.type == "red_key" || change_tile.type == "green_key" || change_tile.type == "orange_key") {
+                            
+                            var coord_spoof_x = 0;
+                            var coord_spoof_y = 0;
+                            if (south == true && labeldir == "south") {
+                                coord_spoof_y = 1;
+                            }
+                            if (north == true && labeldir == "north") {
+                                coord_spoof_y = 0 - 1;
+                            }
+                            if (west == true && labeldir == "west") {
+                                coord_spoof_x = 0 - 1;
+                            }
+                            if (east == true && labeldir == "east") {
+                                coord_spoof_x = 1;
+                            }
+                            if (change_tile.x < player1_x + 7 + coord_spoof_x && change_tile.x + 7 > player1_x + coord_spoof_x && change_tile.y < player1_y + 7 + coord_spoof_y && change_tile.y + 7 > player1_y + coord_spoof_y) {
+                                
+                                if (change_tile.type == "wall" || change_tile.type == "yellow_door" || change_tile.type == "red_door" || change_tile.type == "green_door" || change_tile.type == "orange_door") {
+                                    if (detect_key()) {
+                                        return true;
+                                    }
+                                }
+                                else if (change_tile.type == "yellow_key") {
+                                    change_tile.x = 9999999999999999;
+                                    yellow = true;
+                                    return false;
+                                }
+                                else if (change_tile.type == "red_key") {
+                                    change_tile.x = 9999999999999999;
+                                    red = true;
+                                    return false;
+                                }
+                                else if (change_tile.type == "green_key") {
+                                    change_tile.x = 9999999999999999;
+                                    green = true;
+                                    return false;
+                                }
+                                else if (change_tile.type == "orange_key") {
+                                    change_tile.x = 9999999999999999;
+                                    orange = true;
+                                    return false;
+                                }
+                            }
+                        }
+                        new_tile_num = new_tile_num + 1;
+                    } else {
+                        loop = false;
+                    }
+                }
+            }
+            
+            function detect_key() {
+                if (change_tile.type == "yellow_door" && key_test(yellow)) {
+                    return false;
+                } else if (change_tile.type == "red_door" && key_test(red)) {
+                    return false;
+                } else if (change_tile.type == "green_door" && key_test(green)) {
+                    return false;
+                } else if (change_tile.type == "orange_door" && key_test(orange)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            
+            //testfor keys
+            function key_test(color) {
+                if (color == true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+            //INDEPENDENTS\/
+            
+            //player 1 information
+            //coordinates
+            var player1_x = 0;
+            var player1_y = -7;
+            //orientation
+            var direction = "south";
+            //movement
+            var north = false;
+            var south = false;
+            var east = false;
+            var west = false;
+            //keys
+            var red = false;
+            var green = false;
+            var yellow = false;
+            var orange = false;
+            //shooting
+            var shooting = false;
+            
+            //test for what key is down, set direction variable to it's direction and sets north/south/east/west to true
+            window.addEventListener("keydown", binds, false);
+            function binds(e) {
+                //ARROW KEYS
+                if (e.keyCode == "40") {
+                    //set south
+                    direction = "south";
+                    //south = true;
+                }
+                if (e.keyCode == "39") {
+                    //set east
+                    direction = "east";
+                    //east = true;
+                }
+                if (e.keyCode == "38") {
+                    //set north
+                    direction = "north";
+                    //north = true;
+                }
+                if (e.keyCode == "37") {
+                    //set west
+                    direction = "west";
+                    //west = true;
+                }
+                
+                //WASD
+                if (e.keyCode == "87") {
+                    //set north
+                    north = true;
+                }
+                if (e.keyCode == "83") {
+                    //set south
+                    south = true;
+                }
+                if (e.keyCode == "68") {
+                    //set west
+                    east = true;
+                }
+                if (e.keyCode == "65") {
+                    //set west
+                    west = true;
+                }
+                
+                //SHOOT
+                if (e.keyCode == "32") {
+                    if (shooting == false) {
+                        shooting = true;
+                    }
+                    
+                }
+            }
+            
+            //test for which key is no longer pressed and disable it
+            window.addEventListener("keyup", upbinds, false);
+            function upbinds(u) {                
+                //WASD
+                if (u.keyCode == "87") {
+                    //set north
+                    north = false;
+                }
+                if (u.keyCode == "83") {
+                    //set south
+                    south = false;
+                }
+                if (u.keyCode == "68") {
+                    //set west
+                    east = false;
+                }
+                if (u.keyCode == "65") {
+                    //set west
+                    west = false;
+                }
+                
+                //SHOOT
+                if (u.keyCode == "32") {
+                    shooting = false;
+                }
+            }
+            
+            //add coordinate by 1, depending on if the direction is true and if it doesn't collide
+            //25
+            function set_coordinates() {
+                //north
+                if (north == true && !collision("north")) {
+                    player1_y = player1_y - 1;
+                }
+                //south
+                if (south == true && !collision("south")) {
+                    player1_y = player1_y + 1;
+                }
+                //east
+                if (east == true && !collision("east")) {
+                    player1_x = player1_x + 1;
+                }
+                //west
+                if (west == true && !collision("west")) {
+                    player1_x = player1_x - 1;
+                }
+            }
+            
+            //SHOOT
+            //500
+            function startshoot() {
+                if (shooting == true) {
+                    tiles[tiles.length] = {x:player1_x, y:player1_y, type:"arrow", dir:direction, image:arrow_n, image_string:'stone_bricks'}//!!!add new atrribute weapon:"bow","crossbow"etc
+                    //shooting = false;
+                    //setTimeout(function(){ shoot(); }, 100);
+                }
+            }
+            
+            
+            //10
+            function shoot() {
+                var snew_tile_num = 0;
+                var snum_of_tiles = tiles.length;
+                var sloop = true;
+                while (sloop) {
+                    if (snew_tile_num < snum_of_tiles) {
+                        change_tile = tiles[snew_tile_num];
+                        if (change_tile.type == "arrow") {
+                            if (change_tile.dir == "north") {
+                                change_tile.image = arrow_n;
+                                change_tile.y = change_tile.y - 1;
+                            }
+                            if (change_tile.dir == "south") {
+                                change_tile.image = arrow_s;
+                                change_tile.y = change_tile.y + 1;
+                            }
+                            if (change_tile.dir == "east") {
+                                change_tile.image = arrow_e;
+                                change_tile.x = change_tile.x + 1;
+                            }
+                            if (change_tile.dir == "west") {
+                                change_tile.image = arrow_w;
+                                change_tile.x = change_tile.x - 1;
+                            }
+                        }
+                    snew_tile_num = snew_tile_num + 1;
+                    } else {
+                        sloop = false;
+                    }
+                }
+            }
+            
+            var start_tick = 0;
+            var tick = 1;
+            function real_time_tick() {
+                if (start_tick == 0) {
+                    start_tick = Date.now();
+                }
+                tick = Date.now() - start_tick;
+                //console.log(tick);
+            }
+        </script>
+    </body>
+</html>
