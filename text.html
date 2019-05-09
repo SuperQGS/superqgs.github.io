@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <style>
+            body {
+                background-color: black;
+            }
+            * {
+                color: white;
+            }
+            #player_input {
+                width: 100%;
+                background-color: black;
+                border: 0px;
+                outline-width: 0;
+                border-color: black;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="text">
+            <p>a qgsoftware adventure.
+                <p>
+                    <p>You wake up.
+                        <p>
+
+        </div>
+        <br>
+        <input type="text" id="player_input">
+        <script>
+            var input = document.getElementById("player_input");
+            input.addEventListener("keyup", function(event) {
+                if (event.keyCode === 13) {
+                    var command = document.getElementById("player_input").value
+                    var text = document.getElementById("text").innerHTML
+
+                    var response = commandstest(command.toLowerCase());
+
+
+
+
+
+                    document.getElementById("text").innerHTML = text + "<p>\> " + command + "</p>" + "<p>" + response + "</p>";
+                    document.getElementById("player_input").value = "";
+                }
+            })
+
+            function commandstest(totest) {
+                if (totest == "help") {
+                    return "help, self, see, grab, use, move, talk."
+                }
+                if (totest.includes("self")) {
+                    return self();
+                }
+                if (totest.includes("see")) {
+                    return level.see;
+                }
+                if (totest.includes("grab")) {
+                    return grabfunc(totest);
+                }
+                if (totest.includes("use")) {
+                    return level.uses.toString()
+                }
+                if (totest.includes("move")) {
+                        return level.moves.toString()
+                }
+                if (totest.includes("talk")) {
+                    return level.talks.toString()
+                } else {
+                    return "Please use \"help\" to see a list of commands."
+                }
+            }
+                
+
+
+                //commands
+
+                function self() {
+                    var inven = items.toString();
+                    return "heath: " + hp + "/100. Inventory:" + inven + ".";
+                }
+
+                function grabfunc(gquote) {
+                    if (gquote.includes(level.grabs[0])) {
+                        var quotet = "you grabbed the " + level.grabs[0] + ". Added to inventory."
+                        console.log("hi")
+                        items[items.length] = level.grabs[0]
+                        level.grabs[0] = null;
+                        return quotet;
+                    } else {
+                        return "grab what? " + level.grabs.toString()
+                    }
+                }
+
+
+                //vars
+                var hp = 100
+                var items = [" sword", " clothes"]
+                
+            
+                var cave = {
+                    see: "you are in a cave.",
+                    grabs: [" rock", " pickaxe"],
+                    uses: [],
+                    moves: ["outside"],
+                    talks: []
+                }
+                
+                var outside = {
+                    see: "you are outside.",
+                    grabs: [" flower"],
+                    uses: [],
+                    moves: [],
+                    talks: []
+                }
+                
+                var level;
+                level = cave;
+        </script>
+    </body>
+
+</html>
