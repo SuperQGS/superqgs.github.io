@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      #survey {
+        text-align: center;
+      }
+        #final {
+            text-align: center;
+            display: none;
+      }
+      
+      #NSA {
+        text-align: center;
+        color:lightgreen;
+        background-color:black;
+        display: none;
+      }
+      
+      #NSA2 {
+        color:lightgreen;
+        background-color:black;
+        display: none;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div id="survey">
+      <h1>SURVEY</h1>
+      An Internet Experience By Aidan Beck
+      <p>Please fill out this Survey</p>
+      Full name: <input id="name"><br><br>
+      Age: <input id="age"><br><br>
+      Political Alignment<br>
+      
+      Left<input type="range" id="slide" name="a" value="50">Right<br><br>
+      Gender:
+      
+      <select id="gender">
+        <option></option>
+        <option>Male</option>
+        <option>Female</option>
+        <option>Other</option>
+      </select>
+      
+      
+      <br><br>
+      <button onclick="done_survey()">Submit</button>
+      
+    </div>
+    
+    <div id="NSA">
+      
+      <h1>SURVEY</h1>
+      <p>An NSA program</p>
+      <p id="opfil">Continue?</p>
+      <button onclick="yes()">Yes</button><button>No</button>
+      
+    </div>
+    
+    <div id="NSA2">
+      
+      <h1>PRISM - a United States Mass Surveillance Program</h1>
+      <p id="2name">Name: Aidan Beck</p>
+      <p id="2age">Age: 15</p>
+      <p id="2sex">Sex: M</p>
+      <p id="2align">Political alignment: Left</p>
+      <p>Current Location: United States, Missouri, St.Louis (Area), Lindbergh Highschool.</p>
+      <p>Current Phone Coordinates: 38.5288487, -90.3739114</p>
+      <p>Satellite Image</p>
+        <img src="spy.PNG">
+        <p>Other Pages:</p>
+        Text Messages | Phone calls | Browsing History | Internet Traffic | Contacts | Phone Images | Movement Map | More... |
+        <br><br>
+        <button onclick="end()">Continue</button>
+    </div>
+      
+      <div id="final">
+          
+          <h1>The United States and Mass Surveillance</h1>
+          <p>In 2008 the Fisa Ammendments Act authorized various NSA projects such as PRISM under the intention of preventing potential terrorism. The result has been somewhat of an overreach, violating the privacy of almost every US citizen. They let the United States acess and save nearly any information from internet devices, and also acess them with warrants from secret courts, which could be "given" by pressing an accept button.</p>
+          <h3>Edward Snowden</h3>
+          <p>In 2013, an NSA whistleblower saw what was arong about the mass surveillance in the NSA. After trying to express how these programs were unconstitutional through the NSA itself, he decided to warn the public about this via whistleblowing. He threw his life away, downloading NSA files onto a few encrpyted laptops and buying a one way ticket to Hong Kong, as he would likely not be given a fair trial if caught in The States. Soon later he contacted US Journalists, who were able to give this information to the public.</p>
+          <h3>Where I got these beliefs and why I hold them</h3>
+          <p>I believe that privacy should be a human right because of many things. An instinctual need for privacy, novels i have read for school like 1984, and various Edward Snowden documentaries I watched for a project in 8th grade. I hold them because I don't think the government should hold so much power over it's citizens. Just because you don't have anything to hide doesn't mean you don't deserve the right to privacy.</p>
+          <h3>The potential future of my beliefs</h3>
+          <p>I think I would be likely to hold these beliefs, however things like National Security issues and potential terrorism is the best counter argument against them, and I may someday change my mind.</p>
+          
+      </div>
+    
+  </body>
+  
+  <script>
+    var name;
+    var age;
+    var align;
+    var sex;
+    
+    
+    function done_survey() {
+      name = document.getElementById("name").value;
+      age = document.getElementById("age").value;
+      align = document.getElementById("slide").value;
+      sex = document.getElementById("gender").value;
+      
+      
+      document.getElementById("survey").style.display = "none";
+      document.getElementById("NSA").style.display = "block";
+      
+    }
+    
+    function yes() {
+        alert("You need a Warrant to acess this file. Would you like to grant yourself a Warrant? (Legal under PRISM surveillance program. Permission stated in the FISA Ammendments Act of 2008).");
+        alert("Warrant Concieved. Acess Granted to any information on " + name + ".");
+      
+        document.getElementById("NSA").style.display = "none";
+        document.getElementById("NSA2").style.display = "block";
+        
+        document.getElementById("2name").innerHTML = "Name: " + name;
+        document.getElementById("2age").innerHTML = "Age: " + age;
+        document.getElementById("2align").innerHTML = "Political alignment (0 = max left, 100 = max right): " + align;
+        document.getElementById("2sex").innerHTML = "Name: " + sex;
+      
+    }
+      
+      function end() {
+          document.getElementById("NSA2").style.display = "none";
+          document.getElementById("final").style.display = "block";
+      }
+  </script>
+</html>
