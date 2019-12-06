@@ -18,10 +18,11 @@
     <body>
         <canvas id="all"></canvas>
         <p>The infinite video. In this video, if watched long enough, will be every movie, every piece of art, every family film, everything ever. Historic battles with 100% accuracy can be found and watched, technically. Your entire life, from the perspective of you, is here. Somewhere. Everything filmed and not filmed can be found.</p>
-        <button onclick="toggle()">Toggle Antialiasing</button>
+        <button onclick="toggler()">Toggle Antialiasing</button>
         
         
         <script>
+            alert("EPILEPSY WARNING: lots of flashing lights and colors, if in risk of danger please leave the page for your own safety.")
             var c = document.getElementById("all");
             var ctx = c.getContext("2d");
 
@@ -56,14 +57,18 @@
             }
             
             var toggle = true;
-            function toggle() {
+            function toggler() {
                 if (toggle) {
                     
-                    document.getElementById("all").imageRendering = "pixelated";
+                    document.getElementById("all").style.imageRendering = "pixelated";
                     
                     toggle = false;
                 } else {
+                    
+                    document.getElementById("all").style.imageRendering = "auto";
+                    
                     toggle = true;
+                    
                 }
             }
         </script>
