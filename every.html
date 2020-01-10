@@ -43,12 +43,14 @@
         <p>Historical battles with 100% accuracy.</p>
         <p>Entire lives, from the person's perspective, birth to death. In fact, <i>Every</i> life. From other angles as well.</p>
         <p>You're not looking at random static. You're looking at a time machine. You're looking at the universe. You're looking at everything.<p>
-      
+        <hr>
+        <p>Extras</p>
+        <p>This works by generating 3 random numbers for every pixel, each number between 0 and 255. The three numbers represent the colors red, green, and blue. By mixing them, you can get any color. Click here to <button onclick=randcolor()>generate a color.</button><div id="color"></div></p>
+        <p>It does this for every pixel on the screen, which you can visualize better by pressing <button onclick=callslow()>this button</button></p>
+        <p><i>but why such a low resolution?</i> I actually tried a 1080p resolution, however each frame took way too long to render. Though this might not matter if you're waiting an eternity, I figured it's more fun to watch at a better framerate. However, you can try the 1080p version by clicking <button onclick=hd()>here</button>. Low end computers beware!</p>
         
-        <p><i>but why such a low resolution?</i> I actually tried a 1080p resolution, however each frame took way too long to render. Though this might not matter if you're waiting an eternity, I figured it's more fun to watch at a better framerate. However, you can try the 1080p version by clicking here. Low end computers beware!</p>
+        <p>Also, you can <button onclick="toggler()">toggle antialiasing</button> here if you would like.</p>
         
-        <p>Also, you can toggle antialiasing here if you would like.</p>
-        <button onclick="toggler()">Toggle Antialiasing</button>
         </div>
         
         <script>
@@ -67,34 +69,67 @@
             window.setInterval(function(){ cycle(); }, 0);
             
             function cycle() {
-                
-                var x = 0;
-                var y = 0;
-                for (y = 0; y <= height; y++) {
-                    for (x = 0; x <= width; x++) {
-                        ctx.beginPath();
-                        ctx.rect(x, y, 1, 1);
-                        var r = Math.floor(Math.random() * 256);
-                        var g = Math.floor(Math.random() * 256);
-                        var b = Math.floor(Math.random() * 256);
-                        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
-                        ctx.fill();
+                if (!slowv) {
+                    var x = 0;
+                    var y = 0;
+                    for (y = 0; y <= height; y++) {
+                        for (x = 0; x <= width; x++) {
+                            ctx.beginPath();
+                            ctx.rect(x, y, 1, 1);
+                            var r = Math.floor(Math.random() * 256);
+                            var g = Math.floor(Math.random() * 256);
+                            var b = Math.floor(Math.random() * 256);
+                            ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                            ctx.fill();
+                        }
                     }
                 }
                 
-                
-                
             }
+            
+            var x = 0;
+            var y = 0;
+            function slow() {
+                
+                ctx.beginPath();
+                ctx.rect(x, y, 1, 1);
+                var r = Math.floor(Math.random() * 256);
+                var g = Math.floor(Math.random() * 256);
+                var b = Math.floor(Math.random() * 256);
+                ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")";
+                ctx.fill();
+                
+                if (x < width) {
+                    x++;
+                    
+                } else {
+                    x = 0;
+                    if (y < height) {
+                        y++;
+                    } else {
+                        y = 0;
+                    }
+                }
+            }
+            
+            var slowv = false;
+            function callslow() {
+                slowv = true;
+                ctx.clearRect(0, 0, width, height);
+                window.setInterval(function(){ slow(); }, 0);
+            }
+            
+            
             
             var toggle = false;
             function toggler() {
                 if (toggle) {
                     
                     //document.getElementById("all").style.imageRendering = "pixelated";
-                    document.getElementById("all").style.image-rendering = "-moz-crisp-edges";
-                    document.getElementById("all").style.image-rendering = "-webkit-crisp-edges";
-                    document.getElementById("all").style.image-rendering = "pixelated";
-                    document.getElementById("all").style.image-rendering = "crisp-edges";
+                    document.getElementById("all").style.imageRendering = "-moz-crisp-edges";
+                    document.getElementById("all").style.imageRendering = "-webkit-crisp-edges";
+                    document.getElementById("all").style.imageRendering = "pixelated";
+                    document.getElementById("all").style.imageRendering = "crisp-edges";
                     
                     toggle = false;
                 } else {
@@ -104,6 +139,13 @@
                     toggle = true;
                     
                 }
+            }
+            
+            function hd() {
+                width = 1920;
+                height = 1080;
+                document.getElementById("all").width = width;
+                document.getElementById("all").height = height;
             }
         </script>
     </body>
