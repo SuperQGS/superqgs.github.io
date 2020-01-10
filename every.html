@@ -21,10 +21,15 @@
                 image-rendering: pixelated;
             }
             
+            #desc {
+                width: 70%;
+            }
+            
         </style>
     </head>
     <body>
         <canvas id="all"></canvas>
+        <div id="desc">
         <p><i>An infinite number of monkeys, given an infinite number of typewriters, and an infinite amount of time, will eventually reproduce the complete works of Willium Shakespeare.</i></p>
         <p>Hi. What you see above is a little project I made in study hall. It might just look like random static, and, well, that <i>is</i> what it is, but there's more to it than that.</p>
         <p>You see, it truly is RANDOM static. Every pixel of the 100x50 screen is given a random color, for every frame. Essentially, each frame is just a randomly generated image. So most of the time, it will look like colorful static. <i>Most</i> of the time.</p>
@@ -43,7 +48,7 @@
         
         <p>Also, you can toggle antialiasing here if you would like.</p>
         <button onclick="toggler()">Toggle Antialiasing</button>
-        
+        </div>
         
         <script>
             alert("EPILEPSY WARNING: lots of flashing lights and colors, if in risk of danger please leave this page for your own safety.");
