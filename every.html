@@ -85,11 +85,15 @@
                 
             }
             
-            var toggle = true;
+            var toggle = false;
             function toggler() {
                 if (toggle) {
                     
-                    document.getElementById("all").style.imageRendering = "pixelated";
+                    //document.getElementById("all").style.imageRendering = "pixelated";
+                    document.getElementById("all").style.image-rendering = "-moz-crisp-edges";
+                    document.getElementById("all").style.image-rendering = "-webkit-crisp-edges";
+                    document.getElementById("all").style.image-rendering = "pixelated";
+                    document.getElementById("all").style.image-rendering = "crisp-edges";
                     
                     toggle = false;
                 } else {
