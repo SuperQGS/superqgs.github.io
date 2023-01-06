@@ -1,0 +1,16 @@
+0 air
+1 gravel
+2 droplet
+3 puddle
+4 water
+5 slopeNorth
+6 slopeSouth
+7 slopeEast
+8 slopeWest
+
+
+Controls
+
+LCLICK + Drag = move perspective
+LCLICK + UNLCLICK = interact
+Middle Click = Move To Mouse Location

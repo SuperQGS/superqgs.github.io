@@ -1,0 +1,14 @@
+/* FULLSCREEN, COURIER NEW */
+html, body {
+    font-family: "Courier New";
+    margin: 0px;
+    height: 100%;
+    cursor: crosshair;
+}
+
+/* JS CANVAS */
+#worldCanvas {
+    width: 100%;
+
+    float: left;
+}

@@ -1,0 +1,72 @@
+
+1. Website
+-screenshots / gifs
+-playable build
+-consice information
+-links to discord, reddit, tumblr, youtube, tiktok
+-host on github?
+
+2. Reddit
+-pinned explanation
+-link to website
+-link to discord
+-welcome message w links
+
+3. Discord
+-proper info
+-links
+-roles
+-hard rebrand?
+
+4. tumblr
+-????
+-Blaze-it?
+
+5. Tiktok
+-new tiktok
+-link to website
+-link to discord
+-prep ahead of time to do a big push
+
+6. Youtube
+-use my current channel
+-prep videos ahead of time to do a big push
+
+7. Email newsletter
+-for people without discord
+
+8. Steam?
+-could be a good way to find an audience
+
+
+THE PUSH
+-website launches
+-Youtube video drops
+-Discord info drops
+-Pinned reddit post drops
+-Tiktok drops
+-Tumblr drops
+
+-Youtube, reddit, tumblr, and tiktok content primed and ready to go for the course of a month at least
+
+Goal of the push:
+-get as many people signed up for the discord or newsletter, so I can contact them about the game
+-Flood the algorithms with rather consistent content, get it pushed out there
+-Patreon? If this happens during the summer.
+
+When should I push?
+-Probably at the start of summer, so I can monetize and really
+-Maybe during school, once I get the hang of things. I sometimes don't do anything during the summer. Counterpoint, maybe I would
+
+What should be done before I push?
+-A build should definitely be playable
+-mobile support
+-multiplayer should probably be available
+-maybe multiplayer could just be internal, with occasional public tests to see if the hardware can handle it. Might pay for amazon services to ensure it works smoothly and doesn't leak my ip.
+
+
+
+
+Market Strategy
+-I could potentially market the same game different ways to different demographics
+-it could be more or less of a game, story, or fun random internet thing to kill time with
