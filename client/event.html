@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+
+    .plane {
+      font-family: 'Courier New';
+      font-size: 36px;
+      position: absolute;
+      transform-origin: center;
+    }
+
+    /* This sets the 3D position and orientation of the text element */
+    .plane {
+      transform: translate3d(100px, 50px, 200px) rotateX(30deg) rotateY(45deg);
+    }
+
+    /* This sets the position of the text element on the screen */
+    .plane {
+      left: 100px;
+      top: 50px;
+
+      border: 1px solid black;
+    }
+
+
+  </style>
+</head>
+<body>
+  
+  <section id="example-element" tabindex="0">
+    <div class="plane" id="one">Hello World</div>
+  </section>
+
+  <script>
+
+  // var debug = [
+  //   [w, 0, 0, 0],
+  //   [0, h, 0, 0],
+  //   [0, 0, l, 0],
+  //   [x, y, z, scale?]
+  // ]
+
+  let plane = [
+    [20, 0, 0, 0],
+    [0, 10, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 10]
+  ]
+
+  function rotateMatrix(matrix, angleX, angleY, angleZ) {
+    const cosX = Math.cos(angleX);
+    const sinX = Math.sin(angleX);
+    const cosY = Math.cos(angleY);
+    const sinY = Math.sin(angleY);
+    const cosZ = Math.cos(angleZ);
+    const sinZ = Math.sin(angleZ);
+
+    const rotationX = [    [1, 0, 0, 0],
+      [0, cosX, -sinX, 0],
+      [0, sinX, cosX, 0],
+      [0, 0, 0, 1]
+    ];
+
+    const rotationY = [    [cosY, 0, sinY, 0],
+      [0, 1, 0, 0],
+      [-sinY, 0, cosY, 0],
+      [0, 0, 0, 1]
+    ];
+
+    const rotationZ = [    [cosZ, -sinZ, 0, 0],
+      [sinZ, cosZ, 0, 0],
+      [0, 0, 1, 0],
+      [0, 0, 0, 1]
+    ];
+
+    let rotation = multiplyMatrices(rotationX, rotationY);
+    rotation = multiplyMatrices(rotation, rotationZ);
+
+    return multiplyMatrices(rotation, matrix);
+  }
+
+
+  function multiplyMatrices(matrix1, matrix2) {
+    const result = [];
+
+    for (let i = 0; i < matrix1.length; i++) {
+      result[i] = [];
+      for (let j = 0; j < matrix2[0].length; j++) {
+        let sum = 0;
+        for (let k = 0; k < matrix1[0].length; k++) {
+          sum += matrix1[i][k] * matrix2[k][j];
+        }
+        result[i][j] = sum;
+      }
+    }
+
+    return result;
+  }
+
+
+
+
+  function updateMatrixCSS(matrix,id) {
+
+    const a11 = matrix[0][0];
+    const a12 = matrix[0][1];
+    const a13 = matrix[0][2];
+    const a14 = matrix[0][3];
+    const a21 = matrix[1][0];
+    const a22 = matrix[1][1];
+    const a23 = matrix[1][2];
+    const a24 = matrix[1][3];
+    const a31 = matrix[2][0];
+    const a32 = matrix[2][1];
+    const a33 = matrix[2][2];
+    const a34 = matrix[2][3];
+    const a41 = matrix[3][0];
+    const a42 = matrix[3][1];
+    const a43 = matrix[3][2];
+    const a44 = matrix[3][3];
+
+    
+    const cssString = `matrix3d(${a11},${a12},${a13},${a14},${a21},${a22},${a23},${a24},${a31},${a32},${a33},${a34},${a41},${a42},${a43},${a44})`;
+
+    // Set the style of an element to use the matrix
+    const element = document.getElementById(id);
+    element.style.transform = cssString;
+
+  }
+
+  rotateMatrix(plane,2,0,0);
+  updateMatrixCSS(plane,"one");
+
+  </script>
+</body>
+</html>

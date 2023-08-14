@@ -1,0 +1,60 @@
+/* FULLSCREEN, COURIER NEW */
+html, body {
+    font-family: "Courier New";
+    margin: 0px;
+    height: 100%;
+    cursor: crosshair;
+    
+    /*might be able to remove*/
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    overflow:hidden;
+}
+
+/* HEADER */
+header {
+  user-select: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  border-bottom: 1px solid gray;
+  background-color: rgba(255,255,255,.99);
+}
+#minimizedTabs {
+  border-left: 1px solid gray;
+}
+.header-buttons {
+  display: flex;
+}
+.header-buttons-span {
+  padding: 1px 10px;
+  border: none;
+  cursor: pointer;
+    border-right: 1px solid gray;
+    background-image: linear-gradient(to bottom, rgb(245, 245, 245), white);
+}
+.version {
+  padding: 1px 20px;
+  border: none;
+}
+#coordinates {
+  margin-left: 25px;
+  margin-right: 25px;
+  overflow: hidden;
+  width: 200px; /* Set a fixed width */
+  overflow: hidden;
+}
+.header-buttons-span:hover {
+    background-image: linear-gradient(to bottom, rgb(200, 200, 200), white);
+}
+
+
+
+/* JS CANVAS */
+#worldCanvas {
+    width: 100%;
+    float: left;
+    overflow: hidden;
+}

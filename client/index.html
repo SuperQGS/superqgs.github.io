@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+
+    <!--Styling-->
+    <title>Anchored: Type To Build.</title>
+    <link rel="icon" href="imgs/icon.png" type="image/gif" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	  <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/context.css">
+    <link rel="stylesheet" href="styles/subtitle.css">
+    <link rel="stylesheet" href="styles/windows.css">
+    
+    <div style="display:none">
+      <img src="imgs/dust/backpack.png" id="backpack"/> 
+      <img src="imgs/dust/c4.png" id="c4"/> 
+      <img src="imgs/dust/cannedfood.png" id="cannedfood"/> 
+      <img src="imgs/dust/canopener.png" id="canopener"/> 
+      <img src="imgs/dust/crowbar.png" id="crowbar"/> 
+      <img src="imgs/dust/flashdrive.png" id="flashdrive"/> 
+      <img src="imgs/dust/flashlight.png" id="flashlight"/> 
+      <img src="imgs/dust/hammer.png" id="hammer"/> 
+      <img src="imgs/dust/knife.png" id="knife"/> 
+      <img src="imgs/dust/molotov.png" id="molotov"/> 
+      <img src="imgs/dust/nail.png" id="nail"/> 
+      <img src="imgs/dust/pallet.png" id="pallet"/> 
+      <img src="imgs/dust/pistol.png" id="pistol"/> 
+      <img src="imgs/dust/plank.png" id="plank"/> 
+      <img src="imgs/dust/radio.png" id="radio"/> 
+      <img src="imgs/dust/saw.png" id="saw"/> 
+      <img src="imgs/dust/toothbrush.png" id="toothbrush"/> 
+      <img src="imgs/dust/trowel.png" id="trowel"/> 
+
+      <img src="imgs/dust/wb.png" id="wb"/>
+    </div>
+    
+
+
+
+
+    <!--Canvas-->
+	  <canvas id="worldCanvas"></canvas>
+    
+    <!--DRAGGABLE WINDOWS-->
+    <div id="windows">
+
+      <!--HOLDING ITEM-->
+      <div id="holding" class="holdingItemSquare">
+        <img src="imgs/dust/backpack.png">
+      </div>
+
+      <!--INVENTORY TEMPLATE-->
+      <div id="inventoryTemplate" class="window show">
+
+        <div class="inventoryContainer">
+          
+          <!--Top Bar-->
+          <div class="inventoryAddress">
+
+            <div class="inventoryUndo blank">🡄</div>
+            <div class="inventoryRedo blank selectable">🡆</div>
+
+            <div class="inventoryDirectoryBar">
+              <span class="inventoryDirectoryField selectable" onclick="WINDOWS.direct()"><i>HigherDir</i></span>
+              <span class="inventoryDirectoryField">›</span>
+              <span class="inventoryDirectoryField selectable" onclick="WINDOWS.direct()"><i><b>CurrentDir</b></i></span>
+            </div>
+
+
+            <div class="inventoryMinimize selectable" onclick="WINDOWS.minimize('inventoryTemplateX')">🗕</div>
+            <div class="inventoryExit selectable" onclick="WINDOWS.exit('inventoryTemplateX')">✖</div>
+
+          </div>
+
+          <!--Side Bar--> <!--!!!Currently Disabled-->
+          <div class="inventorySidebar">
+            
+            <div class="inventorySidebarContents">
+              <div class="inventorySideItem">› Self</div>
+              <div class="inventorySideItem" style="padding-left:20px">› <img src="imgs/dust/backpack.png">Backpack</div>
+              <div class="inventorySideItem" style="padding-left:60px"><img src="imgs/dust/crowbar.png">Crowbar</div>
+              <div class="inventorySideItem">› Nearby</div>
+            </div>
+            
+            <div class="inventorySidebarToggle">
+              ‹<br><br>
+            </div>
+
+          </div>
+
+          <!--Main Section-->
+          <div id="debugFiles" class="inventoryFiles">
+
+            <div class="inventoryList">
+            
+              <div class="inventoryListItem"><img src="imgs/dust/backpack.png"> <b>Test Item</b></div>
+            
+            </div>
+
+            <div class="inventoryGrid">
+              <div class="inventoryGridItem" grid-area="x00"> <img src="imgs/dust/backpack.png"> </div>
+              <div class="inventoryGridItem" grid-area="x01"></div>
+              <div class="inventoryGridItem" grid-area="x02"></div>
+
+              <div class="inventoryGridItem" grid-area="x10"></div>
+              <div class="inventoryGridItem" grid-area="x11"></div>
+              <div class="inventoryGridItem" grid-area="x12"></div>
+
+              <div class="inventoryGridItem" grid-area="x20"> <img src="imgs/dust/backpack.png"> </div>
+              <div class="inventoryGridItem" grid-area="x21"></div>
+              <div class="inventoryGridItem" grid-area="x22"></div>
+            </div>
+            
+          </div>
+        
+        </div>
+
+    </div>
+
+    <!--OPTIONS MENU-->
+    <div id="optionsMenu" class="window show" style="display:none">
+
+      <div class="inventoryContainer">
+        
+        <!--Top Bar-->
+        <div class="inventoryAddress">
+
+          <div class="inventoryDirectorybar selectable" onclick="WINDOWS.direct()"><i>Settings</i></div>
+
+          <div class="inventoryMinimize selectable" onclick="WINDOWS.minimize('optionsMenu')">🗕</div>
+          
+        </div>
+
+        <!--Side Bar-->
+        <div class="inventorySidebar">
+          
+          <div class="inventorySidebarContents">
+            <div class="inventorySideItem">› About</div>
+            <div class="inventorySideItem">› Community</div>
+            <div class="inventorySideItem">› Settings</div>
+          </div>
+
+        </div>
+
+        <!--Main Section-->
+        <div id="debugFiles" class="inventoryFiles">
+
+          <div class="inventoryList">
+            <div class="inventoryListItem"><b>viewDistance</b></div>
+            <div class="inventoryListItem"><b>chunkRange</b></div>
+            <div class="inventoryListItem"><b>tileScale.z</b></div>
+            <div class="inventoryListItem"><b>rotationSnap</b></div>
+            <div class="inventoryListItem"><b>originPosition.x</b></div>
+            <div class="inventoryListItem"><b>originPosition.y</b></div>
+            <div class="inventoryListItem"><b>backSpaceMode</b></div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+
+  </div>
+    
+
+    <!--Header-->
+    <header>
+      <div class="header-buttons">
+
+        <strong class="version"><strong id="optionsMenuTab" class="header-buttons-span" onclick="WINDOWS.maximize('optionsMenu')">☰ Alpha 1.0</strong> <strong id="coordinates"></strong></strong>
+        
+
+        <div id="minimizedTabs">
+          <span id="inventoryTemplateTab" class="header-buttons-span" onclick="WINDOWS.minimize('inventoryTemplate')">inventoryTemplate</span>
+        </div>
+        <span class="header-buttons-span" onclick="WINDOWS.build(PLAYER)">🗗</span>
+
+      </div>
+    </header>
+    
+    <!--Right Click Context Menu-->
+    <div class="context-menu" id="context-menu">
+      <ul>
+        <!--li onclick='MENU.moveHere();''>Move Here</li-->
+        <li>   </li>
+      </ul>
+    </div>
+
+    <!--Subtitle-->
+    <div class="subtitle">
+      <strong>
+        
+        <div style="font-size:25px">ⓘ</div>
+        ⚠️ Right Click and Drag to look around.
+      </strong>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <!--Testing-->
+    <script src="scripts/items.js"></script>
+    <script src="scripts/windows.js"></script>
+    
+    <!--Socket-->
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <script defer src="scripts/socket.js"></script>
+
+    <!--Main-->
+    <script src="scripts/main.js"></script>
+    
+    <!--Visuals-->
+    <script src="scripts/render.js"></script> 
+    <script src="scripts/debug.js"></script>
+    <script src="scripts/menu.js"></script>
+    
+    <!--Input-->
+    <script src="scripts/mouse.js"></script>
+    <script src="scripts/keyboard.js"></script>
+    
+    <!--Logic-->
+    <script src="scripts/you.js"></script>
+    <script src="scripts/tiles.js"></script>
+    <script src="scripts/cursor.js"></script>
+    <script src="scripts/tutorial.js"></script>
+
+</html>

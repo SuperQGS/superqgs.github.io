@@ -1,0 +1,210 @@
+/*TEMPLATE ELEMENTS*/
+#inventoryTemplate {
+  display: none;
+}
+#inventoryTemplateTab {
+  display: none;
+}
+
+
+/*WINDOW ANIMATIONS*/
+.window {
+
+  position: absolute;
+
+  opacity: 0;
+  transition: opacity 0.1s ease-in-out;
+
+  /*resize: both;
+  overflow: auto;*/
+
+}
+.show { /*makes the window visible*/
+  opacity: 1;
+  transition: opacity 0.1s ease-in-out;
+}
+
+/*Main Inventory Class*/
+.inventoryContainer {
+
+  user-select: none;
+
+  top:8px; /*!!! should be different spot*/
+  left:968px;
+
+  background-color: rgba(239,231,173,0.99);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+
+  display: grid;
+  grid-template-areas:
+    "address  address  address"
+    "files  files  files"; /*!!! first should be sidebar*/
+  grid-template-columns: 3fr 4fr 4fr;
+  grid-template-rows: 2fr 16fr;
+
+}
+
+/*Inventory Address Bar*/
+.inventoryAddress {
+  grid-area: address;
+  cursor: move;
+  background-color: rgb(198,152,106,0.8);
+  display: flex;
+}
+.inventoryUndo {
+  padding: 4px;
+  padding-left:8px;
+  padding-right:8px;
+  font-size: 120%;
+  float: left;
+}
+.inventoryRedo {
+  padding: 4px;
+  padding-left:8px;
+  padding-right:8px;
+  font-size: 120%;
+  float: left;
+}
+.blank {
+  color: rgba(0,0,0,0.25);
+}
+.inventoryDirectoryBar {
+  display: flex;
+}
+.inventoryDirectoryField {
+  padding: 4px;
+  font-size: 120%;
+  float: left;
+}
+.inventoryAddress > .selectable:hover {
+  background-image: linear-gradient(to bottom, rgb(168,122,76,0.8), rgb(228,182,136,0.8));
+  cursor: pointer;
+}
+.inventoryAddress > .inventoryDirectoryBar > .selectable:hover {
+  background-image: linear-gradient(to bottom, rgb(168,122,76,0.8), rgb(228,182,136,0.8));
+  cursor: pointer;
+}
+.inventoryMinimize {
+  padding: 4px;
+  padding-left:8px;
+  padding-right:8px;
+  font-size: 120%;
+
+  margin-left: auto;
+}
+.inventoryExit {
+  padding: 4px;
+  padding-left:8px;
+  padding-right:8px;
+  font-size: 120%;
+
+}
+
+/*Inventory Sidebar*/
+.inventorySidebar {
+
+  display: none; /*!!! this should go away*/
+
+  grid-area: sidebar;
+  background-color: rgb(184,191,161,1);
+  margin: 5px;
+  margin-right: 0px;
+  padding: 4px;
+  border: 1px solid rgb(198,152,106,0.8);
+}
+.inventorySideItem {
+  background-color: rgb(184,191,161,0.5);
+  margin: 2px;
+  padding: 2px;
+  font-size: 100%;
+}
+.inventorySideItem img {
+  vertical-align: middle;
+  width: 15px;
+  margin-right: 3px;
+}
+.inventorySideItem:hover {
+  background-color: rgb(214,221,191,1);
+}
+
+/*Inventory Contents*/
+.inventoryFiles {
+  grid-area: files;
+}
+.inventoryList {
+  display: visible; /*!!!none*/
+}
+.inventoryListItem {
+  border: 1px solid rgb(198,152,106,0.8);
+  background-color: rgb(184,191,161,0.5);
+  margin: 5px;
+  padding: 5px;
+  font-size: 120%;
+}
+.inventoryListItem img {
+  vertical-align:middle;
+}
+.inventoryListItem:hover {
+  background-image: linear-gradient(to bottom, rgb(184,191,161,0.5), rgb(184,191,161,0.8));
+}
+.inventoryGrid {
+  
+  display: none; /*!!!grid*/
+  grid-gap: 5px;
+  margin: 5px;
+  padding: 5px;
+  
+  margin-top: 1px;
+
+  justify-content: center;
+
+  grid-template-areas:
+    "x00  x01 x02"
+    "x10  x11 x12"
+    "x20  x21 x22";
+  grid-template-columns: repeat(3, 56px);
+  grid-template-rows: repeat(3, 56px);
+}
+.inventoryGridItem {
+  
+  text-align: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  border: 1px solid rgb(198,152,106,0.8);
+  background-color: rgb(184,191,161,0.5);
+}
+.inventoryGridItem img {
+  vertical-align: middle;
+  width: 48px;
+  image-rendering: pixelated;
+}
+.inventoryGridItem:hover {
+  background-image: linear-gradient(to bottom, rgb(184,191,161,0.5), rgb(184,191,161,0.8));
+}
+
+/*Single Item Window*/
+.holdingItemSquare {
+  user-select: none;
+
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  z-index: 99;
+  position: absolute;
+
+  background-color: rgb(184,191,161,1);
+  border-radius: 100%;
+  border: 5px solid rgb(184,191,161,1); /*!!!could mess with styles more*/
+
+  pointer-events: auto; /*!!!should be none eventually*/
+}
+.holdingItemSquare img { /*copies .inventoryGridItem img*/
+  vertical-align: middle;
+  width: 48px;
+  image-rendering: pixelated;
+}
